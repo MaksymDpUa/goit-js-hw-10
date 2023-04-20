@@ -1,0 +1,2 @@
+!function(){var t,n=document.querySelector("#search-box");document.querySelector("country-list"),document.querySelector("country-info");n.addEventListener("input",(function(){})),(t="deutschland",fetch("".concat("https://restcountries.com/v3.1").concat("/name/").concat(t,"?fields=name,capital,population,flags,languages")).then((function(t){if(!t.ok)throw new Error(t.statusText);return t.json()})).catch((function(t){return console.log(t)}))).then((function(t){return console.log(t)}))}();
+//# sourceMappingURL=index.570b03a2.js.map
