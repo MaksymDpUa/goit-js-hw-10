@@ -6,41 +6,41 @@ const debounce = require('lodash.debounce');
 const DEBOUNCE_DELAY = 300;
 
 const searchBox = document.querySelector('#search-box');
-
 const countryInfo = document.querySelector('.country-info');
+const countryList = document.querySelector('.country-list');
+
 
 searchBox.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
-const countryList = document.querySelector('.country-list');
-console.log(countryInfo);
+
 
 function onSearch(evt) {
   const country = evt.target.value.trim();
 
-  fetchCountries(country).then(data => {
-    if (!evt.target.value) {
+  fetchCountries(country)
+    .then(data => {
+      if (!evt.target.value) {
+        countryList.innerHTML = '';
+        countryInfo.innerHTML = '';
+        return;
+      } else if (data.length > 10) {
+        Notiflix.Notify.info(
+          'Too many matches found. Please enter a more specific name.'
+        );
+        countryList.innerHTML = '';
+      } else if (data.length > 1 && data.length < 10) {
+        createShortList(data);
+        countryInfo.innerHTML = '';
+      } else if (data.length === 1) {
+        createfullDisc(data);
+        countryList.innerHTML = '';
+      }
+    })
+    .catch(e => {
       countryList.innerHTML = '';
       countryInfo.innerHTML = '';
-      return
-    }
-    else if (data.length > 10) {
-      Notiflix.Notify.info(
-        'Too many matches found. Please enter a more specific name.'
-      );
-      countryList.innerHTML = '';
-    } else if (data.length > 1 && data.length < 10) {
-      createShortList(data);
-      countryInfo.innerHTML = '';
-    } else if (data.length === 1) {
-      createfullDisc(data);
-      countryList.innerHTML = '';
-    }
-  }).catch(e => {
-          countryList.innerHTML = '';
-      countryInfo.innerHTML = '';
-    console.log(e)
-  })
-  console.log(country);
-}
+      console.log(e);
+    });
+  }
 
 function createShortList(countries) {
   shortList = countries
@@ -79,10 +79,6 @@ function createfullDisc(data) {
     <p>Capital: ${capital[0]}</p>
     <p>Population: ${population}</p>
     <p>Languages: ${countryLanguages}</p>`;
-  console.log(fullDisc);
   countryInfo.innerHTML = fullDisc;
 }
-// function createShortMarkUp(list) {
-//   // const countryList = document.querySelector('country-list');
-//   countryList.insertAdjacentHTML('beforeend', list);
-// }
+
