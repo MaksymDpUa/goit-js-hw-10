@@ -14,7 +14,7 @@ const countryList = document.querySelector('.country-list');
 console.log(countryInfo);
 
 function onSearch(evt) {
-  const country = evt.target.value;
+  const country = evt.target.value.trim();
 
   fetchCountries(country).then(data => {
     if (!evt.target.value) {
@@ -72,7 +72,7 @@ function createfullDisc(data) {
   for (lang in languages) {
     countryLanguages += `${languages[lang]}, `;
   }
-  const fullDisc = `<div>
+  const fullDisc = `<div class="title-box">
       <img src="${svg}" alt="${official}" />
       <h2>${official}</h2>
     </div>

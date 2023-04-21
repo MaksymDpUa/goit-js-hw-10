@@ -35,3 +35,13 @@ li > img {
 li > p {
   display: block;
 }
+
+.title-box {
+  display: inline-flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.title-box > img {
+  width: 100px;
+}
