@@ -43,8 +43,7 @@ function onSearch(evt) {
   }
 
 function createShortList(countries) {
-  shortList = countries
-    .map(country => {
+  const shortList = countries.map(country => {
       const {
         name: { official },
         flags: { svg },
