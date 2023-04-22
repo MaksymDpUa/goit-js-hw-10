@@ -9,9 +9,7 @@ const searchBox = document.querySelector('#search-box');
 const countryInfo = document.querySelector('.country-info');
 const countryList = document.querySelector('.country-list');
 
-
 searchBox.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
-
 
 function onSearch(evt) {
   const country = evt.target.value.trim();
@@ -40,10 +38,11 @@ function onSearch(evt) {
       countryInfo.innerHTML = '';
       console.log(e);
     });
-  }
+}
 
 function createShortList(countries) {
-  const shortList = countries.map(country => {
+  const shortList = countries
+    .map(country => {
       const {
         name: { official },
         flags: { svg },
@@ -59,7 +58,6 @@ function createShortList(countries) {
 
 function createfullDisc(data) {
   const targetContry = data.shift();
-  console.log(targetContry);
   const {
     name: { official },
     flags: { svg },
@@ -67,8 +65,9 @@ function createfullDisc(data) {
     population,
     languages,
   } = targetContry;
-  let countryLanguages = ``;
-  for (lang in languages) {
+  let countryLanguages = '';
+
+  for (const lang in languages) {
     countryLanguages += `${languages[lang]}, `;
   }
   const fullDisc = `<div class="title-box">
@@ -80,4 +79,3 @@ function createfullDisc(data) {
     <p>Languages: ${countryLanguages}</p>`;
   countryInfo.innerHTML = fullDisc;
 }
-
